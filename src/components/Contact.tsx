@@ -12,36 +12,42 @@ import {
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { personalInfo } from "@/data/portfolio";
-
-const contactLinks = [
-  {
-    label: "Email",
-    value: personalInfo.email,
-    href: `mailto:${personalInfo.email}`,
-    icon: Mail,
-  },
-  {
-    label: "LinkedIn",
-    value: "linkedin.com/in/gf0212",
-    href: personalInfo.linkedin,
-    icon: Linkedin,
-  },
-  {
-    label: "GitHub",
-    value: "github.com/Gabrielrlf",
-    href: personalInfo.github,
-    icon: Github,
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function Contact() {
+  const { t } = useLanguage();
+
+  const contactLinks = [
+    {
+      label: t.contact.email,
+      value: personalInfo.email,
+      href: `mailto:${personalInfo.email}`,
+      icon: Mail,
+      external: false,
+    },
+    {
+      label: t.contact.linkedin,
+      value: "linkedin.com/in/gf0212",
+      href: personalInfo.linkedin,
+      icon: Linkedin,
+      external: true,
+    },
+    {
+      label: t.contact.github,
+      value: "github.com/Gabrielrlf",
+      href: personalInfo.github,
+      icon: Github,
+      external: true,
+    },
+  ];
+
   return (
     <AnimatedSection id="contact" className="section-padding bg-surface/50">
       <div className="container-custom">
         <SectionTitle
-          label="Contact"
-          title="Let's build something remarkable"
-          description="Open to senior engineering roles in cloud-native, fintech, AI, and platform engineering. Based in Fortaleza, Brazil — available for remote and international opportunities."
+          label={t.contact.label}
+          title={t.contact.title}
+          description={t.contact.description}
         />
 
         <div className="mx-auto max-w-4xl">
@@ -58,17 +64,15 @@ export function Contact() {
             <div className="relative grid gap-8 lg:grid-cols-2">
               <div>
                 <h3 className="text-2xl font-semibold text-foreground">
-                  Get in touch
+                  {t.contact.getInTouch}
                 </h3>
                 <p className="mt-3 text-foreground-secondary leading-relaxed">
-                  Whether you&apos;re hiring for a senior engineering role or
-                  want to discuss cloud architecture, event-driven systems, or
-                  AI-augmented development — I&apos;d love to connect.
+                  {t.contact.body}
                 </p>
 
                 <div className="mt-6 flex items-center gap-2 text-sm text-muted">
                   <MapPin size={14} />
-                  {personalInfo.location}
+                  {t.personal.location}
                 </div>
 
                 <a
@@ -76,7 +80,7 @@ export function Contact() {
                   className="group mt-8 inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-white shadow-glow transition-all hover:bg-accent-light hover:shadow-[0_0_60px_rgba(99,102,241,0.3)]"
                 >
                   <Send size={16} />
-                  Send an Email
+                  {t.contact.sendEmail}
                   <ArrowUpRight
                     size={14}
                     className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -91,12 +95,8 @@ export function Contact() {
                     <motion.a
                       key={link.label}
                       href={link.href}
-                      target={link.label !== "Email" ? "_blank" : undefined}
-                      rel={
-                        link.label !== "Email"
-                          ? "noopener noreferrer"
-                          : undefined
-                      }
+                      target={link.external ? "_blank" : undefined}
+                      rel={link.external ? "noopener noreferrer" : undefined}
                       initial={{ opacity: 0, x: 20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}

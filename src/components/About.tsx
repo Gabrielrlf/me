@@ -4,17 +4,19 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Badge } from "@/components/ui/Badge";
-import { about, education } from "@/data/portfolio";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { GraduationCap, Code2 } from "lucide-react";
 
 export function About() {
+  const { t } = useLanguage();
+
   return (
     <AnimatedSection id="about" className="section-padding">
       <div className="container-custom">
         <SectionTitle
-          label="About"
-          title="Engineering at the intersection of cloud, fintech & AI"
-          description="Passionate about building systems that are reliable, observable, and built to scale."
+          label={t.about.label}
+          title={t.about.title}
+          description={t.about.description}
         />
 
         <div className="grid gap-8 lg:grid-cols-5">
@@ -24,11 +26,11 @@ export function About() {
                 <Code2 size={20} className="text-accent-light" />
               </div>
               <h3 className="text-lg font-semibold text-foreground">
-                Who I Am
+                {t.about.whoIAm}
               </h3>
             </div>
             <div className="space-y-4 text-foreground-secondary leading-relaxed">
-              {about.paragraphs.map((paragraph, i) => (
+              {t.about.paragraphs.map((paragraph, i) => (
                 <p key={i}>{paragraph}</p>
               ))}
             </div>
@@ -40,11 +42,11 @@ export function About() {
                 <GraduationCap size={20} className="text-cyan" />
               </div>
               <h3 className="text-lg font-semibold text-foreground">
-                Education
+                {t.about.education}
               </h3>
             </div>
             <ul className="space-y-4">
-              {education.map((item, i) => (
+              {t.about.educationItems.map((item, i) => (
                 <li
                   key={i}
                   className="border-l-2 border-border pl-4 transition-colors hover:border-accent/50"
@@ -63,10 +65,10 @@ export function About() {
 
         <div className="mt-8">
           <h3 className="mb-4 text-center text-sm font-medium uppercase tracking-wider text-muted">
-            Core Expertise
+            {t.about.coreExpertise}
           </h3>
           <div className="flex flex-wrap justify-center gap-2">
-            {about.expertise.map((skill, i) => (
+            {t.about.expertise.map((skill, i) => (
               <Badge key={i} variant={i % 3 === 0 ? "accent" : "default"}>
                 {skill}
               </Badge>

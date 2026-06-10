@@ -4,26 +4,29 @@ import { motion } from "framer-motion";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { Badge } from "@/components/ui/Badge";
-import { experience } from "@/data/portfolio";
+import { experienceCompanies, experienceTags } from "@/data/portfolio";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Briefcase } from "lucide-react";
 
 export function Experience() {
+  const { t } = useLanguage();
+
   return (
     <AnimatedSection id="experience" className="section-padding bg-surface/50">
       <div className="container-custom">
         <SectionTitle
-          label="Experience"
-          title="Building systems that power financial platforms"
-          description="6+ years across fintech, banking, enterprise, and gaming — from legacy modernization to cloud-native architecture."
+          label={t.experience.label}
+          title={t.experience.title}
+          description={t.experience.description}
         />
 
         <div className="relative mx-auto max-w-3xl">
           <div className="absolute left-6 top-0 hidden h-full w-px bg-gradient-to-b from-accent/50 via-border to-transparent md:block" />
 
           <div className="space-y-8">
-            {experience.map((job, index) => (
+            {t.experience.jobs.map((job, index) => (
               <motion.div
-                key={job.company}
+                key={experienceCompanies[index]}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
@@ -42,7 +45,7 @@ export function Experience() {
                       </div>
                       <div>
                         <h3 className="text-lg font-semibold text-foreground">
-                          {job.company}
+                          {experienceCompanies[index]}
                         </h3>
                         <p className="text-sm text-accent-light">{job.role}</p>
                       </div>
@@ -65,7 +68,7 @@ export function Experience() {
                   </ul>
 
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {job.tags.map((tag) => (
+                    {experienceTags[index].map((tag) => (
                       <Badge key={tag} variant="accent">
                         {tag}
                       </Badge>

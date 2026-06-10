@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Providers } from "@/components/Providers";
+import { DocumentMeta } from "@/components/DocumentMeta";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -86,7 +88,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <script
@@ -97,7 +99,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
-        {children}
+        <Providers>
+          <DocumentMeta />
+          {children}
+        </Providers>
       </body>
     </html>
   );

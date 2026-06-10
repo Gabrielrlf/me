@@ -11,7 +11,8 @@ import {
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { highlights } from "@/data/portfolio";
+import { highlightIcons } from "@/data/portfolio";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const iconMap: Record<string, LucideIcon> = {
   shield: Shield,
@@ -22,18 +23,20 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export function Highlights() {
+  const { t } = useLanguage();
+
   return (
     <AnimatedSection id="highlights" className="section-padding">
       <div className="container-custom">
         <SectionTitle
-          label="Highlights"
-          title="Featured engineering impact"
-          description="Key areas where I've delivered measurable value across cloud, fintech, and AI-driven engineering."
+          label={t.highlights.label}
+          title={t.highlights.title}
+          description={t.highlights.description}
         />
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {highlights.map((item, index) => {
-            const Icon = iconMap[item.icon];
+          {t.highlights.items.map((item, index) => {
+            const Icon = iconMap[highlightIcons[index]];
             return (
               <GlassCard
                 key={item.title}

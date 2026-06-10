@@ -3,10 +3,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { navLinks, personalInfo } from "@/data/portfolio";
+import { navHrefs, personalInfo } from "@/data/portfolio";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { cn } from "@/lib/utils";
 
 export function Header() {
+  const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -48,31 +51,35 @@ export function Header() {
         </a>
 
         <div className="hidden items-center gap-1 md:flex">
-          {navLinks.map((link) => (
+          {navHrefs.map((link) => (
             <a
               key={link.href}
               href={link.href}
               className="rounded-lg px-3 py-2 text-sm text-foreground-secondary transition-colors hover:bg-white/[0.04] hover:text-foreground"
             >
-              {link.label}
+              {t.nav[link.key]}
             </a>
           ))}
+          <LanguageSwitcher className="ml-1" />
           <a
             href="#contact"
             className="ml-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition-all hover:bg-accent-light hover:shadow-glow"
           >
-            Contact
+            {t.nav.contact}
           </a>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-white/[0.04] text-foreground md:hidden"
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <LanguageSwitcher />
+          <button
+            type="button"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-white/[0.04] text-foreground"
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
       </nav>
 
       <AnimatePresence>
@@ -84,14 +91,14 @@ export function Header() {
             className="border-b border-border bg-background/95 backdrop-blur-xl md:hidden"
           >
             <div className="container-custom flex flex-col gap-1 px-4 py-4">
-              {navLinks.map((link) => (
+              {navHrefs.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className="rounded-lg px-4 py-3 text-sm text-foreground-secondary transition-colors hover:bg-white/[0.04] hover:text-foreground"
                 >
-                  {link.label}
+                  {t.nav[link.key]}
                 </a>
               ))}
               <a
@@ -99,7 +106,7 @@ export function Header() {
                 onClick={() => setMobileOpen(false)}
                 className="mt-2 rounded-lg bg-accent px-4 py-3 text-center text-sm font-medium text-white"
               >
-                Contact
+                {t.nav.contact}
               </a>
             </div>
           </motion.div>

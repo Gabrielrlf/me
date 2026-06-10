@@ -1,7 +1,11 @@
+"use client";
+
 import { personalInfo } from "@/data/portfolio";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Github, Linkedin, Mail } from "lucide-react";
 
 export function Footer() {
+  const { t } = useLanguage();
   const year = new Date().getFullYear();
 
   return (
@@ -16,7 +20,7 @@ export function Footer() {
               {personalInfo.name}
             </p>
             <p className="text-xs text-muted">
-              Senior Software Engineer · {personalInfo.location}
+              {t.footer.role} · {t.personal.location}
             </p>
           </div>
         </div>

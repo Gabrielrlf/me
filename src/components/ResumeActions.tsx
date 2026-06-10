@@ -1,22 +1,27 @@
 "use client";
 
 import Link from "next/link";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export function ResumeActions() {
+  const { t } = useLanguage();
+
   return (
-    <div className="no-print fixed right-4 top-4 z-50 flex gap-2">
+    <div className="no-print fixed right-4 top-4 z-50 flex items-center gap-2">
+      <LanguageSwitcher variant="full" />
       <button
         type="button"
         onClick={() => window.print()}
         className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
       >
-        Print / Save as PDF
+        {t.resume.print}
       </button>
       <Link
         href="/"
         className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
       >
-        Back to Portfolio
+        {t.resume.back}
       </Link>
     </div>
   );

@@ -12,7 +12,8 @@ import {
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { architectureFocus } from "@/data/portfolio";
+import { architectureIcons } from "@/data/portfolio";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const iconMap: Record<string, LucideIcon> = {
   cloud: Cloud,
@@ -24,18 +25,20 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export function ArchitectureFocus() {
+  const { t } = useLanguage();
+
   return (
     <AnimatedSection id="expertise" className="section-padding">
       <div className="container-custom">
         <SectionTitle
-          label="Architecture & Engineering"
-          title="Technical expertise that scales"
-          description="Deep specialization in the patterns and platforms that power modern distributed systems."
+          label={t.architecture.label}
+          title={t.architecture.title}
+          description={t.architecture.description}
         />
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {architectureFocus.map((area, index) => {
-            const Icon = iconMap[area.icon];
+          {t.architecture.items.map((area, index) => {
+            const Icon = iconMap[architectureIcons[index]];
             return (
               <GlassCard key={area.title} delay={index * 0.08}>
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-accent/20 bg-gradient-to-br from-accent/20 to-transparent">

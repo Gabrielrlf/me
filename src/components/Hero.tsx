@@ -9,7 +9,8 @@ import {
   Github,
   Mail,
 } from "lucide-react";
-import { personalInfo } from "@/data/portfolio";
+import { heroTechBadges, personalInfo } from "@/data/portfolio";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -29,6 +30,8 @@ const itemVariants = {
 };
 
 export function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section className="relative min-h-screen overflow-hidden pt-16">
       <div className="absolute inset-0 bg-hero-glow" />
@@ -53,11 +56,11 @@ export function Hero() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
             <span className="text-sm text-foreground-secondary">
-              Available for opportunities
+              {t.personal.availability}
             </span>
             <span className="hidden items-center gap-1 text-sm text-muted sm:inline-flex">
               <MapPin size={12} />
-              {personalInfo.location}
+              {t.personal.location}
             </span>
           </motion.div>
 
@@ -72,22 +75,22 @@ export function Hero() {
             variants={itemVariants}
             className="mt-4 max-w-3xl text-balance text-lg font-medium text-foreground-secondary sm:text-xl lg:text-2xl"
           >
-            {personalInfo.shortHeadline}
-            <span className="gradient-text"> — Cloud-Native & AI-Driven</span>
+            {t.personal.shortHeadline}
+            <span className="gradient-text">{t.personal.headlineSuffix}</span>
           </motion.p>
 
           <motion.p
             variants={itemVariants}
             className="mt-6 max-w-2xl text-balance text-base leading-relaxed text-muted sm:text-lg"
           >
-            {personalInfo.tagline}
+            {t.personal.tagline}
           </motion.p>
 
           <motion.div
             variants={itemVariants}
             className="mt-4 flex flex-wrap items-center justify-center gap-2"
           >
-            {[".NET", "AWS", "Kubernetes", "Kafka", "FinTech"].map((tech) => (
+            {heroTechBadges.map((tech) => (
               <span
                 key={tech}
                 className="rounded-md border border-border bg-white/[0.03] px-2.5 py-1 font-mono text-xs text-foreground-secondary"
@@ -105,7 +108,7 @@ export function Hero() {
               href="#contact"
               className="group inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-white shadow-glow transition-all hover:bg-accent-light hover:shadow-[0_0_60px_rgba(99,102,241,0.3)]"
             >
-              Contact Me
+              {t.hero.contactMe}
               <ArrowRight
                 size={16}
                 className="transition-transform group-hover:translate-x-1"
@@ -118,7 +121,7 @@ export function Hero() {
               className="inline-flex items-center gap-2 rounded-xl border border-border bg-white/[0.04] px-6 py-3 text-sm font-semibold text-foreground transition-all hover:border-border-hover hover:bg-white/[0.08]"
             >
               <Download size={16} />
-              Download Resume
+              {t.hero.downloadResume}
             </a>
             <a
               href={personalInfo.linkedin}
@@ -127,7 +130,7 @@ export function Hero() {
               className="inline-flex items-center gap-2 rounded-xl border border-border bg-white/[0.04] px-6 py-3 text-sm font-semibold text-foreground transition-all hover:border-border-hover hover:bg-white/[0.08]"
             >
               <Linkedin size={16} />
-              View LinkedIn
+              {t.hero.viewLinkedIn}
             </a>
           </motion.div>
 
@@ -175,7 +178,7 @@ export function Hero() {
             className="flex flex-col items-center gap-2 text-muted"
           >
             <span className="font-mono text-[10px] uppercase tracking-widest">
-              Scroll
+              {t.hero.scroll}
             </span>
             <div className="h-8 w-px bg-gradient-to-b from-muted to-transparent" />
           </motion.div>
